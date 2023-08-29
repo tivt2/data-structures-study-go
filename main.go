@@ -2,7 +2,8 @@ package main
 
 import (
 	"fmt"
-	"root/heap"
+	// "root/heap"
+	"root/pubSub"
 	// "root/queue"
 	// "root/ringBuffer"
 	// "root/stack"
@@ -40,22 +41,37 @@ func main() {
 	// rb.Print()
 	// fmt.Println(out3)
 
-	compare := func(item1, item2 interface{}) bool {
-		return item1.(int) < item2.(int)
+	// compare := func(item1, item2 interface{}) bool {
+	// 	return item1.(int) < item2.(int)
+	// }
+
+	// heap := heap.NewHeap(compare)
+
+	// heap.Insert(1)
+	// heap.Print()
+	// heap.Insert(5)
+	// heap.Print()
+	// heap.Insert(2)
+	// heap.Print()
+	// heap.Insert(0)
+	// heap.Print()
+	// out, _ := heap.Pop()
+	// fmt.Println(out)
+	// heap.Print()
+
+	pubsub := pubSub.NewPubSub()
+
+	pubFn := func(text string) func(message interface{}) {
+		return func(message interface{}) {
+			fmt.Println(text, message.(string))
+		}
 	}
-	heap := heap.NewHeap(compare)
 
-
-	heap.Insert(1)
-	heap.Print()
-	heap.Insert(5)
-	heap.Print()
-	heap.Insert(2)
-	heap.Print()
-	heap.Insert(0)
-	heap.Print()
-	out, _ := heap.Pop()
-	fmt.Println(out)
-	heap.Print()
+	cancel := pubsub.Subscribe("something", pubFn("1"))
+	pubsub.Subscribe("something", pubFn("2"))
+	pubsub.Subscribe("another", pubFn("3"))
+	cancel()
+	pubsub.Publish("something", "publishing something")
+	pubsub.Publish("another", "publishing another")
 
 }
