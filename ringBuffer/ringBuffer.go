@@ -1,4 +1,4 @@
-package ring_buffer
+package ringBuffer
 
 import (
 	"errors"

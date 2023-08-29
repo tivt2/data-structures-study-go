@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	// "root/queue"
-	"root/ring_buffer"
+	"root/ringBuffer"
 	// "root/stack"
 )
 
@@ -26,7 +26,7 @@ func main() {
 	// out2, _ := queue.Deque()
 	// fmt.Println(out2)
 
-	rb := ring_buffer.NewRingBuffer(2)
+	rb := ringBuffer.NewRingBuffer(2)
 
 	rb.Enqueue("item1")
 	rb.Print()
