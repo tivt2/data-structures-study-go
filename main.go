@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 	// "root/heap"
-	"root/pubSub"
+	"root/lru"
 	// "root/queue"
 	// "root/ringBuffer"
 	// "root/stack"
@@ -59,19 +59,30 @@ func main() {
 	// fmt.Println(out)
 	// heap.Print()
 
-	pubsub := pubSub.NewPubSub()
+	// pubsub := pubSub.NewPubSub()
 
-	pubFn := func(text string) func(message interface{}) {
-		return func(message interface{}) {
-			fmt.Println(text, message.(string))
-		}
-	}
+	// pubFn := func(text string) func(message interface{}) {
+	// 	return func(message interface{}) {
+	// 		fmt.Println(text, message.(string))
+	// 	}
+	// }
 
-	cancel := pubsub.Subscribe("something", pubFn("1"))
-	pubsub.Subscribe("something", pubFn("2"))
-	pubsub.Subscribe("another", pubFn("3"))
-	cancel()
-	pubsub.Publish("something", "publishing something")
-	pubsub.Publish("another", "publishing another")
+	// cancel := pubsub.Subscribe("something", pubFn("1"))
+	// pubsub.Subscribe("something", pubFn("2"))
+	// pubsub.Subscribe("another", pubFn("3"))
+	// cancel()
+	// pubsub.Publish("something", "publishing something")
+	// pubsub.Publish("another", "publishing another")
+
+	lru := lru.NewLRU(lru.Capacity(2))
+
+	lru.Update("key1", "val1")
+	lru.Print()
+	lru.Update("key2", "val2")
+	lru.Print()
+	lru.Update("key3", "val3")
+	lru.Print()
+	lru.Get("key2")
+	lru.Print()
 
 }
