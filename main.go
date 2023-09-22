@@ -2,8 +2,7 @@ package main
 
 import (
 	"fmt"
-	// "root/heap"
-	"root/lru"
+	"root/BST"
 	// "root/queue"
 	// "root/ringBuffer"
 	// "root/stack"
@@ -74,15 +73,53 @@ func main() {
 	// pubsub.Publish("something", "publishing something")
 	// pubsub.Publish("another", "publishing another")
 
-	lru := lru.NewLRU(lru.Capacity(2))
+	// lru := lru.NewLRU(lru.Capacity(2))
 
-	lru.Update("key1", "val1")
-	lru.Print()
-	lru.Update("key2", "val2")
-	lru.Print()
-	lru.Update("key3", "val3")
-	lru.Print()
-	lru.Get("key2")
-	lru.Print()
+	// lru.Update("key1", "val1")
+	// lru.Print()
+	// lru.Update("key2", "val2")
+	// lru.Print()
+	// lru.Update("key3", "val3")
+	// lru.Print()
+	// lru.Get("key2")
+	// lru.Print()
+
+	// task := func(delay uint) asyncQueue.Job {
+	// 	return func() interface{} {
+	// 		time.Sleep(time.Duration(delay) * time.Millisecond)
+	// 		return fmt.Sprintf("function called with: %d", delay)
+	// 	}
+	// }
+
+	// jobChan, resChan := asyncQueue.NewAsyncQueue(10)
+
+	// jobChan <- task(2000)
+	// jobChan <- task(1000)
+
+	// for res := range resChan {
+	// 	fmt.Println(res)
+	// }
+
+	fn := func(a, b int) int {
+		comparisson := a - b
+		if comparisson == 0 {
+			return comparisson
+		} else if comparisson < 0 {
+			return -1
+		} else {
+			return 1
+		}
+	}
+
+	bst := BST.New(fn)
+
+	bst.Insert(5)
+	bst.Insert(2)
+	bst.Insert(1)
+	bst.Insert(6)
+	fmt.Println(bst.Search(0))
+	// bst.Print()
+	bst.Delete(5)
+	bst.Print()
 
 }

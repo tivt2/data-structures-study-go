@@ -5,28 +5,29 @@ import (
 	"fmt"
 )
 
-type Stack struct {
-	data []interface{}
+type Stack[T any] struct {
+	data []T
 }
 
-func NewStack(options... int) (*Stack) {
+func NewStack[T any](options ...int) *Stack[T] {
 	initialCapacity := 10
 	if len(options) > 0 {
 		initialCapacity = options[0]
 	}
 
-	return &Stack{
-		data: make([]interface{}, 0, initialCapacity),
+	return &Stack[T]{
+		data: make([]T, 0, initialCapacity),
 	}
 }
 
-func (s *Stack) Push(item interface{}) {
+func (s *Stack[T]) Push(item T) {
 	s.data = append(s.data, item)
 }
 
-func (s *Stack) Pop() (interface{}, error) {
+func (s *Stack[T]) Pop() (T, error) {
 	if s.IsEmpty() {
-		return nil, errors.New("stack is empty")
+		var ans T
+		return ans, errors.New("stack is empty")
 	}
 	length := len(s.data)
 	out := s.data[length-1]
@@ -34,23 +35,23 @@ func (s *Stack) Pop() (interface{}, error) {
 	return out, nil
 }
 
-func (s *Stack) Peek() (interface{}, error) {
+func (s *Stack[T]) Peek() (T, error) {
 	if s.IsEmpty() {
-		return nil, errors.New("stack is empty")
+		var ans T
+		return ans, errors.New("stack is empty")
 	}
 
 	return s.data[len(s.data)-1], nil
 }
 
-func (s *Stack) IsEmpty() bool {
+func (s *Stack[T]) IsEmpty() bool {
 	return len(s.data) == 0
 }
 
-func (s *Stack) Length() int {
+func (s *Stack[T]) Length() int {
 	return len(s.data)
 }
 
-func (s *Stack) Print() {
+func (s *Stack[T]) Print() {
 	fmt.Println(s.data)
 }
-
